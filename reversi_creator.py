@@ -10,6 +10,7 @@ import getopt
 import sys
 import player_creator
 import player
+import random_player
 
 
 
@@ -225,7 +226,7 @@ if __name__ == "__main__":
     (choices,args) = getopt.getopt(sys.argv[1:],"")
     #players_dict = {'random':random_player.MyPlayer}
     #players_dict = {'random':random_player.MyPlayer,'greedy':greedy_player.MyPlayer,'alphabeta':alphabeta_player.MyPlayer,'heuristic':heuristic_player.MyPlayer}
-    players_dict = {'player':player.MyPlayer}
+    players_dict = {'player':player.MyPlayer, 'random':random_player.MyPlayer}
     #players_dict = {'player0': player.MyPlayer}
     #players_dict = {}
     for arg in args:
