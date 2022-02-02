@@ -223,8 +223,8 @@ class ReversiCreator(object):
 if __name__ == "__main__": 
     (choices,args) = getopt.getopt(sys.argv[1:],"")
     players_dict = {
-                    'random':random_player.MyPlayer,
-                    'alpha beta':alpha_beta.MyPlayer
+        'random':random_player.MyPlayer,
+        'alpha beta':alpha_beta.MyPlayer
     }
     for arg in args:
         to_import = arg
