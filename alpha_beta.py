@@ -227,22 +227,6 @@ class MyPlayer:
 
         return my_score / (my_score + opponent_score)
 
-
-    """
-    def clone_board(self, board):
-        pass
-
-    def invert_board(self, board):
-        my_board = self.clone_board(board)
-        for row in my_board:
-            for i in range(len(row)):
-                if row[i] == self.my_color:
-                    row[i] = self.opponent_color
-                elif row[i] == self.opponent_color:
-                    row[i] == self.my_color
-        return my_board
-    """
-
     def __is_correct_move(self, move, board):
         dx = [-1, -1, -1, 0, 1, 1, 1, 0]
         dy = [-1, 0, 1, 1, 1, 0, -1, -1]
