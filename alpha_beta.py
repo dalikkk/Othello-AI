@@ -123,7 +123,7 @@ class MyPlayer:
                 if cell == self.my_color:
                     exist_my_color = True
                     my_color_count += 1
-                if cell == self.my_color:
+                if cell == self.opponent_color:
                     exist_opponent_color = True
                     opponent_color_count += 1
                 if cell == -1:
