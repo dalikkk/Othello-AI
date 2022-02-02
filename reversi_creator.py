@@ -11,6 +11,7 @@ import sys
 import player_creator
 import random_player
 import alpha_beta
+import hungry
 
 BOARD_SIZE = 8
 MAX_TIME_FOR_MOVE = 20
@@ -224,7 +225,8 @@ if __name__ == "__main__":
     (choices,args) = getopt.getopt(sys.argv[1:],"")
     players_dict = {
         'random':random_player.MyPlayer,
-        'alpha beta':alpha_beta.MyPlayer
+        'hungry':hungry.MyPlayer,
+        'boss':alpha_beta.MyPlayer
     }
     for arg in args:
         to_import = arg
