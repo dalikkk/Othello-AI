@@ -9,9 +9,7 @@ import time
 import getopt
 import sys
 import player_creator
-import player
 import random_player
-import player_otov
 import alpha_beta
 
 BOARD_SIZE = 8
@@ -224,9 +222,8 @@ class ReversiCreator(object):
 
 if __name__ == "__main__": 
     (choices,args) = getopt.getopt(sys.argv[1:],"")
-    players_dict = {'minimax':player.MyPlayer,
+    players_dict = {
                     'random':random_player.MyPlayer,
-                    'oto':player_otov.MyPlayer,
                     'alpha beta':alpha_beta.MyPlayer
     }
     for arg in args:
