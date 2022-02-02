@@ -1,7 +1,7 @@
 import random
 from game_board import GameBoard
 
-DEBUG = True
+DEBUG = False
 
 class MyGameBoard(GameBoard):
     def __init__(self, board):
@@ -23,7 +23,8 @@ class MyPlayer:
         # TODO: write you method
         # you can implement auxiliary fucntions, of course
         my_board = MyGameBoard(board)
-        self.file = open("move_log.txt", "w")
+        if DEBUG:
+            self.file = open("move_log.txt", "w")
         if DEBUG:
             self.file.write(str(my_board.board) + "\n")
         if DEBUG:
@@ -31,7 +32,8 @@ class MyPlayer:
         result = self.go_through_minimax(my_board, 4)
         if DEBUG:
             self.file.write(str(result) + "\n")
-        self.file.close()
+        if DEBUG:
+            self.file.close()
         return result[1]
 
     #board.play_move()

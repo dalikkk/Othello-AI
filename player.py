@@ -1,6 +1,7 @@
 import random
 from game_board import GameBoard
 
+DEBUG = False
 
 class MyGameBoard(GameBoard):
     def __init__(self, board):
@@ -16,20 +17,33 @@ class MyPlayer:
         self.my_color = my_color
         self.opponent_color = opponent_color
         self.board_size = board_size
+        self.file = None
 
     def move(self, board):
         # TODO: write you method
         # you can implement auxiliary fucntions, of course
         my_board = MyGameBoard(board)
-        print(my_board.board)
+        self.file = open("move_log.txt", "w")
+        if DEBUG:
+            self.file.write(str(my_board.board) + "\n")
+        if DEBUG:
+            self.file.write("ex\n")
         result = self.go_through_minimax(my_board, 4)
-
+        if DEBUG:
+            self.file.write(str(result) + "\n")
+        self.file.close()
         return result[1]
 
     #board.play_move()
+    def tab(self, plunging):
+        for i in range(plunging, 5):
+            self.file.write("|\t")
 
     def go_through_minimax(self, board, plunging, ex=True):
         if plunging == 0:
+            if DEBUG:
+                self.tab(plunging)
+                self.file.write(str(self._evaluate_board(board, ex)) + "\n")
             return self._evaluate_board(board, ex), None
         if ex:
             moves = self.get_all_valid_moves(board.board)
@@ -38,6 +52,11 @@ class MyPlayer:
             best_result = None
             best_move = None
             for move in moves:
+                if DEBUG:
+                    self.tab(plunging)
+                    self.file.write(str(move) + "\n")
+                    self.tab(plunging)
+                    self.file.write("all\n")
                 my_board = MyGameBoard(board.get_board_copy())
                 my_board.play_move(move, self.my_color)
                 result = self.go_through_minimax(my_board, plunging - 1, False)[0]
@@ -47,14 +66,22 @@ class MyPlayer:
                 if best_result < result:
                     best_result = result
                     best_move = move
+                if DEBUG:
+                    self.tab(plunging)
+                    self.file.write(str(result) + "\n")
             return best_result, best_move
         else:
-            moves = self.get_all_valid_moves(board.board)
+            moves = board.get_all_valid_moves(self.opponent_color)
             if moves is None:
                 return self.go_through_minimax(board, plunging - 1, True)
             worst_result = None
             worst_move = None
             for move in moves:
+                if DEBUG:
+                    self.tab(plunging)
+                    self.file.write(str(move) + "\n")
+                    self.tab(plunging)
+                    self.file.write("ex\n")
                 my_board = MyGameBoard(board.get_board_copy())
                 my_board.play_move(move, self.opponent_color)
                 result = self.go_through_minimax(my_board, plunging - 1, True)[0]
@@ -64,6 +91,9 @@ class MyPlayer:
                 if worst_result > result:
                     worst_result = result
                     worst_move = move
+                if DEBUG:
+                    self.tab(plunging)
+                    self.file.write(str(result) + "\n")
             return worst_result, worst_move
 
     def _evaluate_board(self, board, ex):
@@ -111,18 +141,18 @@ class MyPlayer:
             move = dangers[i]
             vertex = vertexes[i]
             if board[move[0]][move[1]] == self.my_color and board[vertex[0]][vertex[1]] == -1:
-                my_score -= 50
+                my_score -= 25
             if board[move[0]][move[1]] == self.opponent_color and board[vertex[0]][vertex[1]] == -1:
-                opponent_score -= 50
+                opponent_score -= 25
 
         edges = [(0, 2), (0, 3), (0, 4), (0, 5),
                  (2, 7), (3, 7), (4, 7), (5, 7),
                  (7, 5), (7, 4), (7, 3), (7, 2)]
         for move in edges:
             if board[move[0]][move[1]] == self.my_color:
-                my_score += 10
+                my_score += 5
             if board[move[0]][move[1]] == self.opponent_color:
-                opponent_score += 10
+                opponent_score += 5
 
         dangerous_edges = [(0, 1), (1, 0), (0, 6), (1, 7), (6, 7), (7, 6), (7, 1), (6, 0)]
         if empty_color_count > 10:
@@ -152,10 +182,10 @@ class MyPlayer:
         starting_good_pos = [(2, 2), (2, 6), (6, 2), (6, 6)]
         for move in starting_good_pos:
             if board[move[0]][move[1]] == self.my_color:
-                if empty_color_count > 20:
+                if empty_color_count > 48:
                     my_score += 5
             if board[move[0]][move[1]] == self.opponent_color:
-                if empty_color_count > 20:
+                if empty_color_count > 48:
                     opponent_score += 5
 
         unimportant_positions = []

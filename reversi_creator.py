@@ -11,11 +11,11 @@ import sys
 import player_creator
 import player
 import random_player
-
-
+import player_otov
+import alpha_beta
 
 BOARD_SIZE = 8
-MAX_TIME_FOR_MOVE = 5
+MAX_TIME_FOR_MOVE = 20
 
 class ReversiCreator(object):
     '''
@@ -224,11 +224,11 @@ class ReversiCreator(object):
 
 if __name__ == "__main__": 
     (choices,args) = getopt.getopt(sys.argv[1:],"")
-    #players_dict = {'random':random_player.MyPlayer}
-    #players_dict = {'random':random_player.MyPlayer,'greedy':greedy_player.MyPlayer,'alphabeta':alphabeta_player.MyPlayer,'heuristic':heuristic_player.MyPlayer}
-    players_dict = {'player':player.MyPlayer, 'random':random_player.MyPlayer}
-    #players_dict = {'player0': player.MyPlayer}
-    #players_dict = {}
+    players_dict = {'minimax':player.MyPlayer,
+                    'random':random_player.MyPlayer,
+                    'oto':player_otov.MyPlayer,
+                    'alpha beta':alpha_beta.MyPlayer
+    }
     for arg in args:
         to_import = arg
         if ".py" in arg:
