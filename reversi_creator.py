@@ -12,6 +12,7 @@ import player_creator
 import random_player
 import alpha_beta
 import hungry
+import participant
 
 BOARD_SIZE = 8
 MAX_TIME_FOR_MOVE = 20
@@ -226,7 +227,8 @@ if __name__ == "__main__":
     players_dict = {
         'random':random_player.MyPlayer,
         'hungry':hungry.MyPlayer,
-        'boss':alpha_beta.MyPlayer
+        'boss':alpha_beta.MyPlayer,
+        'participant':participant.MyPlayer
     }
     for arg in args:
         to_import = arg
